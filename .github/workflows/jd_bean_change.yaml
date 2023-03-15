@@ -3,14 +3,14 @@ name: 京豆变动通知
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 2,14 * * *'
+    - cron: '35 3-22/5 * * *'
   watch:
     types: started
   repository_dispatch:
     types: jd_bean_change
 
 jobs:
-  # timeout-minutes: 50
+  # timeout-minutes: 70
   build:
     runs-on: ubuntu-latest
  
@@ -36,7 +36,7 @@ jobs:
       #     sed -i 's/process.exit(0)/{}/g' ./src/jd_bean_change.js
       #     sed -i 's/GITHUB/G1THU8/g' ./src/jdCookie.js
       - name: '运行 【京豆变动通知】'
-        timeout-minutes: 50
+        timeout-minutes: 70
         run: |
           node ./src/jd_bean_change.js
         env:
