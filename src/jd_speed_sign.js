@@ -29,7 +29,10 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
-
+let maxThread = 1; //并发数
+if ($.isNode() && process.env.JDSPEED_MAXTHREAD){
+	maxThread=process.env.JDSPEED_MAXTHREAD*1;
+}
 
 let TaskList = [];
 let llAPIError = false;
@@ -42,6 +45,7 @@ if ($.isNode()) {
   };
 } else {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
+}
 }
 
 const JD_API_HOST = 'https://api.m.jd.com/';
